@@ -1,9 +1,11 @@
 import React from 'react'
+import HomePage from './components/HomePage'
 
 function App() {
   return (
     <div>
-        this is food recipie idea
+        this is app page
+        <HomePage/>
     </div>
   )
 }
