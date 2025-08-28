@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
+import { IngredientContext } from "../hooks/IngredientContext";
 
 function Ingredient() {
-  const [ingredientList, setList] = useState([]);
+  const { ingredientList, addIngredient, removeIngredient } = useContext(IngredientContext);
+
   const [ingredient, setIngredient] = useState("");
   const [error, setError] = useState({});
 
   const validateText = () => {
     let isValid = true;
     const textBoxError = {};
-
-    // allow only alphabets (and optional spaces if you want multi-word)
     const ingredientRegex = /^[A-Za-z]+$/;
 
     if (!ingredient.trim()) {
@@ -17,7 +17,8 @@ function Ingredient() {
       textBoxError.textError = "Ingredient should not be empty..!";
     } else if (!ingredientRegex.test(ingredient)) {
       isValid = false;
-      textBoxError.textError = "Ingredient should only contain alphabets (no numbers, special characters, white spaces)..!";
+      textBoxError.textError =
+        "Ingredient should only contain alphabets (no numbers, special characters, white spaces)..!";
     }
 
     setError(textBoxError);
@@ -27,14 +28,13 @@ function Ingredient() {
   const handleIngredient = (e) => {
     e.preventDefault();
     if (validateText()) {
-      setList([...ingredientList, ingredient.trim()]);
+      addIngredient(ingredient.trim());
       setIngredient("");
     }
   };
 
   const handleRemove = (index) => {
-    const newList = ingredientList.filter((_, i) => i !== index);
-    setList(newList);
+    removeIngredient(index);
   };
 
   useEffect(() => {
@@ -45,17 +45,36 @@ function Ingredient() {
     <div>
       <h1 id="quickbite-h1">Quick Bite</h1>
       <div id="ingredient-input">
-        <div id="ingredient-list">
+        <div
+          id="ingredient-list"
+          style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "10px" }}
+        >
           {ingredientList.map((ingredient, index) => (
-            <p key={index}>
-              {ingredient}{" "}
+            <span
+              key={index}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                background: "#f0f0f0",
+                padding: "5px 10px",
+                borderRadius: "20px",
+              }}
+            >
+              {ingredient}
               <button
                 onClick={() => handleRemove(index)}
-                style={{ color: "red", cursor: "pointer" }}
+                style={{
+                  marginLeft: "8px",
+                  border: "none",
+                  background: "transparent",
+                  color: "red",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                }}
               >
                 ❌
               </button>
-            </p>
+            </span>
           ))}
         </div>
 

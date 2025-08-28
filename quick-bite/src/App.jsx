@@ -1,13 +1,13 @@
-import React from 'react'
-import HomePage from './components/HomePage'
+import React from "react";
+import { IngredientProvider } from "./hooks/IngredientContext";
+import HomePage from "./components/HomePage";
 
 function App() {
   return (
-    <div>
-        this is app page
-        <HomePage/>
-    </div>
-  )
+    <IngredientProvider>
+      <HomePage />
+    </IngredientProvider>
+  );
 }
 
-export default App
+export default App;
