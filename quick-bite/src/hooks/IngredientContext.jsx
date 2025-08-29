@@ -3,17 +3,13 @@ import React, { createContext, useState, useEffect } from "react";
 export const IngredientContext = createContext();
 
 export const IngredientProvider = ({ children }) => {
-  const [ingredientList, setIngredientList] = useState([]);
-
-  
-  useEffect(() => {
+  // Initialize directly from localStorage
+  const [ingredientList, setIngredientList] = useState(() => {
     const storedList = localStorage.getItem("ingredientList");
-    if (storedList) {
-      setIngredientList(JSON.parse(storedList));
-    }
-  }, []);
+    return storedList ? JSON.parse(storedList) : [];
+  });
 
-  
+  // Save to localStorage whenever ingredientList changes
   useEffect(() => {
     localStorage.setItem("ingredientList", JSON.stringify(ingredientList));
   }, [ingredientList]);
