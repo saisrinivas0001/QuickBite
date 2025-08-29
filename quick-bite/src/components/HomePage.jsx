@@ -4,7 +4,7 @@ import IngredientSearch from './IngredientSearch'
 
 function HomePage() {
   return (
-    <div>
+    <div id='homepage'>
         <Ingredient/>
         <IngredientSearch/>
     </div>
