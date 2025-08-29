@@ -5,10 +5,8 @@ import { IngredientContext } from "../hooks/IngredientContext";
 function IngredientSearch() {
   const { ingredientList } = useContext(IngredientContext);
 
-  // Call API only if ingredients exist
   const { data, loading, error } = useFetchMeals(ingredientList);
 
-  // If no ingredients, show a disabled message
   if (ingredientList.length === 0) {
     return (
       <div>

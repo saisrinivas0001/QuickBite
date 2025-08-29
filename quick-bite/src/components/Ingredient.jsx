@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { IngredientContext } from "../hooks/IngredientContext";
 
 function Ingredient() {
-  const { ingredientList, addIngredient, removeIngredient } = useContext(IngredientContext);
+  const { ingredientList, addIngredient, removeIngredient, emptyIngredientList } = useContext(IngredientContext);
 
   const [ingredient, setIngredient] = useState("");
   const [error, setError] = useState({});
@@ -37,6 +37,10 @@ function Ingredient() {
     removeIngredient(index);
   };
 
+  const handleEmptyList = ()=>{
+    emptyIngredientList()
+  }
+
   useEffect(() => {
     console.log("Ingredient List:", ingredientList);
   }, [ingredientList]);
@@ -44,6 +48,9 @@ function Ingredient() {
   return (
     <div>
       <h1 id="quickbite-h1">Quick Bite</h1>
+      <div>
+        <button id="empty-list" onClick={()=>handleEmptyList()}>Empty the List</button>
+      </div>
       <div id="ingredient-input">
         <div
           id="ingredient-list"
